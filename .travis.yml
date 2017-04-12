@@ -1,0 +1,24 @@
+---
+sudo: false
+
+language: bash
+
+branches:
+  only:
+    - master
+
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - shellcheck
+
+script:
+  - bash -c 'shopt -s globstar; shellcheck **/*.{sh,bash}'
+
+notifications:
+  email: false
+  hipchat:
+    rooms:
+      secure: CBuc8grwf878kvvAaHaSVESMWcO8mi09hjjkdGdl0H3tae3tyFBJmq7h84VVO1fJgzbIC/0rxLcfVHruVIVYYuAiXZxdcI9Y8QVy6I5p7UiEgPnkYg55b5P8KR+yrSAzIjOvmz00gJqICJVA+PP6jGypnWfh3w6dD+ikZ6GEswsLEDAvCsqihVhJdXJE2br2241vN5zpTnAsVp9XgnCIKUSCa7xxWkZ1bfe2PKL3IWAnTvkLkspTSvLYxNntDk/5pOk8N5rSeigOZPcapT+VHdcwOoHjsLNBuEdabdhCqf4ZCiIijv6D2dfxv4jg7kNid+ITyWzusF0XpOepI+SCcf/GG2GocIozK06QuBSh79nn/lnTsw5WZJMcBGcbPR3DxIy0YYa/cl56efhWDG2WOrOFjzSb1LCJc3SeGPaS1o8Xql7rqLDG/6Dcc/fgWAWMKK4fZH9U1FnEmh0iXgqaPdzTZFbAR4vsvB8t9pv2HRkRLYyNvFngeoMzuHLMygILFjddWSOyEIOAtTgfXrLf3Vxq3zx9FMNgrhnv/KKmId9h9GrWArJ6O/C5uyUz0JqWs1+k2e5dgdu4JFNfxLXNIstCwH7WmmymMFFx1dCpXAdXTXMrxSq/NKWEXbrQJ87zxMGxMbgjNQqxWfD3FYgJ6uEUf2+m64v5qomVkOwP1BM=
