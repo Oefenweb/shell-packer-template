@@ -4,6 +4,7 @@
 swapvolume="$(lvscan | awk '{ print $2 }' | grep swap | sed "s/'//g")";
 swapoff "${swapvolume}";
 lvremove -f "${swapvolume}";
+sed -i '/vg-swap/d' /etc/fstab;
 
 rootvolume="$(lvscan | awk '{ print $2 }' | grep root | sed "s/'//g")";
 lvextend -l +100%FREE "${rootvolume}";
