@@ -11,16 +11,18 @@ lvextend -l +100%FREE "${rootvolume}";
 resize2fs "${rootvolume}";
 
 # Zero out free space on /
-count=$(df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}')
-count=$((count - 1))
-whitespacefile='/whitespace';
+partition='/';
+count=$(df --sync -kP ${partition} | tail -n1  | awk -F ' ' '{print $4}');
+count=$((count - 1));
+whitespacefile="${partition}/whitespace";
 dd if=/dev/zero of="${whitespacefile}" bs=1M count="${count}" || echo "dd exit code $? is suppressed";
 rm "${whitespacefile}";
 
 # Zero out free space on /boot
-count=$(df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}');
+partition='/boot';
+count=$(df --sync -kP ${partition} | tail -n1  | awk -F ' ' '{print $4}');
 count=$((count - 1));
-whitespacefile='/boot/whitespace';
+whitespacefile="${partition}/whitespace";
 dd if=/dev/zero of="${whitespacefile}" bs=1M count="${count}" || echo "dd exit code $? is suppressed";
 rm "${whitespacefile}";
 
