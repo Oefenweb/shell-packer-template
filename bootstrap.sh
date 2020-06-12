@@ -4,7 +4,7 @@
 apt-get -y update;
 apt-get -y install curl build-essential libffi-dev libssl-dev;
 
-if [ "${PYTHON_VERSION}" == '3' ]; then
+if [ "${PYTHON_VERSION}" = '3' ]; then
   apt-get -y install python3 python3-dev;
   curl -sL https://bootstrap.pypa.io/get-pip.py | python3 -;
   pip3 install ansible;
