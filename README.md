@@ -4,6 +4,10 @@
 
 Shell scripts to build Debian-like Virtualbox images using Packer.
 
+#### Variables
+
+* `PYTHON_VERSION`: [required]: Python version to use for bootstrapping (e.g. `2`, `3`)
+
 #### License
 
 MIT
