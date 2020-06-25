@@ -14,6 +14,12 @@ else
   pip2 install ansible;
 fi
 
+mkdir -p /etc/ansible;
+cat << EOF > /etc/ansible/ansible.cfg
+[defaults]
+interpreter_python = /usr/bin/python${PYTHON_VERSION}
+EOF
+
 # sudoers
 sed -i \
   -e '/Defaults\s\+env_reset/a Defaults\texempt_group=sudo' \
