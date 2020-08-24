@@ -7,6 +7,7 @@ Shell scripts to build Debian-like Virtualbox images using Packer.
 #### Variables
 
 * `PYTHON_VERSION`: [required]: Python version to use for bootstrapping (e.g. `2`, `3`)
+* `ANSIBLE_VERSION`: [required]: Ansible version to use for bootstrapping (e.g. `latest`, `2.9.10`)
 
 #### License
 
