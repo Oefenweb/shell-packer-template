@@ -16,7 +16,7 @@ if [ "${PYTHON_VERSION}" = '3' ]; then
   python_version_major_minor="$(echo "${python_version}" | cut -c 1-3)";
 
   pip_download_url='https://bootstrap.pypa.io/pip/get-pip.py';
-  if [ "${python_version_major_minor}" == '3.5' ]; then
+  if [ "${python_version_major_minor}" = '3.5' ]; then
     pip_download_url='https://bootstrap.pypa.io/pip/3.5/get-pip.py';
   fi
 
