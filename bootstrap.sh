@@ -11,11 +11,23 @@ fi
 
 if [ "${PYTHON_VERSION}" = '3' ]; then
   apt-get -y install python3 python3-dev;
-  curl -sL https://bootstrap.pypa.io/get-pip.py | python3 -;
+
+  python_version="$(python3 --version 2>&1 | awk '{print $2}')";
+  python_version_major_minor="$(echo "${python_version}" | cut -c 1-3)";
+
+  pip_download_url='https://bootstrap.pypa.io/pip/get-pip.py';
+  if [ "${python_version_major_minor}" == '3.5' ]; then
+    pip_download_url='https://bootstrap.pypa.io/pip/3.5/get-pip.py';
+  fi
+
+  curl -sL "${pip_download_url}" | python3 -;
   pip3 install "${ANSIBLE_VERSION_STRING}";
 else
   apt-get -y install python python-dev;
-  curl -sL https://bootstrap.pypa.io/get-pip.py | python2 -;
+
+  pip_download_url='https://bootstrap.pypa.io/pip/2.7/get-pip.py';
+
+  curl -sL "${pip_download_url}" | python2 -;
   pip2 install "${ANSIBLE_VERSION_STRING}";
 fi
 
