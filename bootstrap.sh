@@ -18,6 +18,8 @@ if [ "${PYTHON_VERSION}" = '3' ]; then
   pip_download_url='https://bootstrap.pypa.io/pip/get-pip.py';
   if [ "${python_version_major_minor}" = '3.5' ]; then
     pip_download_url='https://bootstrap.pypa.io/pip/3.5/get-pip.py';
+  elif [ "${python_version_major_minor}" = '3.6' ]; then
+    pip_download_url='https://bootstrap.pypa.io/pip/3.6/get-pip.py';
   fi
 
   curl -sL "${pip_download_url}" | python3 -;
