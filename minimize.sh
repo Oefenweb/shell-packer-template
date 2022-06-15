@@ -29,7 +29,7 @@ rm "${whitespacefile}";
 swapfile='/swap';
 count=$(stat -c '%s' "${swapfile}");
 count=$((count / 1024));
-swapoff "${swapfile}";
+swapoff "${swapfile}" || true;
 dd if=/dev/zero of="${swapfile}" bs=1024 count="${count}" || echo "dd exit code $? is suppressed";
 mkswap "${swapfile}";
 
