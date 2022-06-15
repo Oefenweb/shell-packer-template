@@ -2,13 +2,17 @@
 
 # TODO: Fix this in preseed.cfg
 swapvolume="$(lvscan | awk '{ print $2 }' | grep swap | sed "s/'//g")";
-swapoff "${swapvolume}";
-lvremove -f "${swapvolume}";
-sed -i '/vg-swap/d' /etc/fstab;
+if [ -n "${swapvolume}" ]; then
+  swapoff "${swapvolume}";
+  lvremove -f "${swapvolume}";
+  sed -i '/vg-swap/d' /etc/fstab;
+fi
 
 rootvolume="$(lvscan | awk '{ print $2 }' | grep root | sed "s/'//g")";
-lvextend -l +100%FREE "${rootvolume}";
-resize2fs "${rootvolume}";
+if [ -n "${rootvolume}" ]; then
+  lvextend -l +100%FREE "${rootvolume}";
+  resize2fs "${rootvolume}";
+fi
 
 # Zero out free space on /
 partition='/';
@@ -29,7 +33,7 @@ rm "${whitespacefile}";
 swapfile='/swap';
 count=$(stat -c '%s' "${swapfile}");
 count=$((count / 1024));
-swapoff "${swapfile}" || true;
+swapoff "${swapfile}";
 dd if=/dev/zero of="${swapfile}" bs=1024 count="${count}" || echo "dd exit code $? is suppressed";
 mkswap "${swapfile}";
 
