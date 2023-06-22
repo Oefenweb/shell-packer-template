@@ -6,13 +6,13 @@ swapvolume="$(lvscan | awk '{ print $2 }' | grep swap | sed "s/'//g")";
 if [ -n "${swapvolume}" ]; then
   swapoff "${swapvolume}";
   lvremove -f "${swapvolume}";
-  sed "\|$(basename "${swapvolume}")|d" /etc/fstab;
+  sed -i "\|$(basename "${swapvolume}")|d" /etc/fstab;
 fi
 swapfile='/swap.img';
 if [ -f "${swapfile}" ]; then
   swapoff "${swapfile}";
   rm "${swapfile}";
-  sed "\|"${swapfile}"|d" /etc/fstab;
+  sed -i "\|"${swapfile}"|d" /etc/fstab;
 fi
 
 rootvolume="$(lvscan | awk '{ print $2 }' | grep root | sed "s/'//g")";
