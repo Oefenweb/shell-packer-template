@@ -1,11 +1,18 @@
 #!/bin/sh -eux
 
 # TODO: Fix this in preseed.cfg
+# See: https://superuser.com/a/920957
 swapvolume="$(lvscan | awk '{ print $2 }' | grep swap | sed "s/'//g")";
 if [ -n "${swapvolume}" ]; then
   swapoff "${swapvolume}";
   lvremove -f "${swapvolume}";
-  sed -i '/vg-swap/d' /etc/fstab;
+  sed "\|$(basename "${swapvolume}")|d" /etc/fstab;
+fi
+swapfile='/swap.img';
+if [ -f "${swapfile}" ]; then
+  swapoff "${swapfile}";
+  rm "${swapfile}";
+  sed "\|"${swapfile}"|d" /etc/fstab;
 fi
 
 rootvolume="$(lvscan | awk '{ print $2 }' | grep root | sed "s/'//g")";
