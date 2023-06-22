@@ -16,6 +16,9 @@ if [ -f "${swapfile}" ]; then
 fi
 
 rootvolume="$(lvscan | awk '{ print $2 }' | grep root | sed "s/'//g")";
+if [ -z "${rootvolume}" ]; then
+  rootvolume="$(lvscan | awk '{ print $2 }' | grep ubuntu | sed "s/'//g")";
+fi
 if [ -n "${rootvolume}" ]; then
   lvextend -l +100%FREE "${rootvolume}";
   resize2fs "${rootvolume}";
